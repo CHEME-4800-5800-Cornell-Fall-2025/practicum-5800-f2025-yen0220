@@ -1,5 +1,3 @@
-# -- PUBLIC METHODS BELOW HERE ---------------------------------------------------------------------------------------- #
-
 function build(modeltype::Type{MyClassicalHopfieldNetworkModel}, data::NamedTuple)::MyClassicalHopfieldNetworkModel
 
     # initialize -
@@ -11,9 +9,10 @@ function build(modeltype::Type{MyClassicalHopfieldNetworkModel}, data::NamedTupl
 
     # compute the W -
     for j ∈ 1:number_of_cols
-        Y = ⊗(linearimagecollection[:,j], linearimagecollection[:,j]); # compute the outer product -
-        W += Y; # update the W -
+        Y = linearimagecollection[:,j] * linearimagecollection[:,j]' # compute the outer product
+        W += Y # update the W
     end
+    
     
     # no self-coupling and Hebbian scaling -
     for i ∈ 1:number_of_rows
@@ -35,6 +34,5 @@ function build(modeltype::Type{MyClassicalHopfieldNetworkModel}, data::NamedTupl
     # return -
     return model;
 end
-# --- PUBLIC METHODS ABOVE HERE --------------------------------------------------------------------------------------- #
 
 # throw(ErrorException("Oppps! No methods defined in src/Factory.jl. What should you do here?"))

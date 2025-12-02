@@ -18,25 +18,6 @@ function _energy(s::Array{<: Number,1}, W::Array{<:Number,2}, b::Array{<:Number,
     return energy_state;
 end
 
-function ⊗(a::Array{T,1}, b::Array{T,1})::Array{T,2} where T <: Number
-
-    # initialize -
-    m = length(a)
-    n = length(b)
-    Y = zeros(m,n)
-
-    # main loop 
-    for i ∈ 1:m
-        for j ∈ 1:n
-            Y[i,j] = a[i]*b[j]
-        end
-    end
-
-    # return 
-    return Y
-end
-
-
 function recover(model::MyClassicalHopfieldNetworkModel, sₒ::Array{Int32,1}, trueenergyvalue::Float32;
     maxiterations::Int = 1000, patience::Union{Int,Nothing} = nothing,
     miniterations_before_convergence::Union{Int,Nothing} = nothing)::Tuple{Dict{Int64, Array{Int32,1}}, Dict{Int64, Float32}}
